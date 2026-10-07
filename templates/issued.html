@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>CertQR - scan to install</title></head>
+<body>
+<h1>Scan to install</h1>
+<p>Certificate for <b>{{ cn }}</b>, valid {{ days }} days, {{ "compatible" if legacy else "modern" }} format.</p>
+{{ qr_svg }}
+<h2>Password: <tt>{{ password }}</tt></h2>
+<p>The password is <b>not</b> in the QR code. Give it to the person installing the certificate separately.</p>
+<p>The server kept no copy of the private key. If you lose this page, issue a new certificate.</p>
+<p><small>PKCS#12 {{ p12_len }} bytes, URL {{ url_len }} bytes, QR version {{ qr_version }}.</small></p>
+<details><summary>Show install link (for testing on this computer)</summary>
+<p><a href="{{ install_url }}" target="_blank" rel="noreferrer">open install page</a></p>
+</details>
+<p>After installing, the device can check its certificate at <a href="{{ verify_url }}">{{ verify_url }}</a></p>
+<p><a href="/">Issue another</a></p>
+</body>
+</html>

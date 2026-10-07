@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>CertQR - install certificate</title></head>
+<body>
+<h1>Install certificate</h1>
+<p id="status">Reading certificate from the link...</p>
+<div id="actions" hidden>
+<p>Certificate: <b id="name"></b> (<span id="size"></span> bytes)</p>
+<p><button id="download">Download .p12 file</button></p>
+<p><button id="install">Install (open with the system)</button></p>
+<p>You will be asked for the password you were given with the QR code.</p>
+<p><button id="wipe">Remove certificate from this page</button></p>
+<p>After installing: <a href="{{ verify_url }}">check that the certificate works</a></p>
+</div>
+<hr>
+<p><small>The certificate is in the part of the link after <tt>#</tt>. Browsers do not send that part to the server, and this page is not allowed to make network requests, so the certificate stays on this device.</small></p>
+<p><small>To trust this server's CA as well: <a href="/ca.crt">CA certificate</a></small></p>
+<script src="/install.js"></script>
+</body>
+</html>

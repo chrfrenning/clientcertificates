@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>CertQR - verify certificate</title></head>
+<body>
+<h1>Verify certificate</h1>
+{% if not on_mtls_port %}
+<p>This address does not ask for a client certificate. Open the verify page on the secure port:</p>
+<p><a href="{{ verify_url }}">{{ verify_url }}</a></p>
+{% else %}
+<h2>{% if ok %}PASS: certificate installed and presented correctly{% else %}FAIL{% endif %}</h2>
+<table border="1" cellpadding="4">
+<tr><th>Check</th><th>Result</th><th>Detail</th></tr>
+{% for check, passed, detail in rows %}
+<tr><td>{{ check }}</td><td>{{ "OK" if passed else "FAILED" }}</td><td><tt>{{ detail }}</tt></td></tr>
+{% endfor %}
+</table>
+{% if not rows[0][1] %}
+<h3>No certificate was sent. Things to check:</h3>
+<ul>
+<li>Is the .p12 installed? On iOS: Settings &gt; General &gt; VPN &amp; Device Management. On Android: Settings &gt; Security &gt; Encryption &amp; credentials &gt; User credentials (install it as a "VPN &amp; app user certificate").</li>
+<li>Did the browser offer a certificate picker? If you cancelled it, or chose "don't send", the browser remembers that until it is fully closed. Close the browser and open this page again.</li>
+<li>On Windows and Android, Chrome and Edge use the system certificate store. Firefox has its own store (Settings &gt; Certificates).</li>
+</ul>
+{% endif %}
+{% endif %}
+<p><a href="{{ verify_url }}">Check again</a></p>
+<hr>
+<p><small>This page uses mutual TLS. Your browser proves it holds the certificate's private key during the TLS handshake; the key never leaves the device. If the browser warns about this site's own certificate, install the <a href="/ca.crt">CA certificate</a> as trusted, or continue past the warning for testing.</small></p>
+</body>
+</html>

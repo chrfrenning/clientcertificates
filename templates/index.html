@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>CertQR - issue certificate</title></head>
+<body>
+<h1>Issue a certificate</h1>
+<form method="post" action="/issue">
+<table border="1" cellpadding="4">
+<tr><td>Common name</td><td><input name="cn" value="admin" maxlength="64"></td></tr>
+<tr><td>Valid for (days)</td><td><input name="days" value="365" size="5"></td></tr>
+<tr><td>PKCS#12 format</td><td>
+  <input type="radio" name="format" value="legacy" checked> Compatible (3DES/SHA1, works on older devices)<br>
+  <input type="radio" name="format" value="modern"> Modern (AES-256/SHA256, needs a recent OS)
+</td></tr>
+</table>
+<p><input type="submit" value="Create certificate and QR code"></p>
+</form>
+<hr>
+<p><a href="/ca.crt">Download the CA certificate</a> (install this as trusted on servers or devices that must accept the issued certificates)</p>
+</body>
+</html>
